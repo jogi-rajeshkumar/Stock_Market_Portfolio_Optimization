@@ -294,27 +294,26 @@ portfolio_weights_df
 ![Capture2](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Capture2.PNG)
 
 Expected Return:
-
 HDFCBANK.NS: 0.0237
 INFY.NS: 0.2077
 RELIANCE.NS: 0.2242
 TCS.NS: 0.2224
-Volatility:
 
+Volatility:
 HDFCBANK.NS: 0.2113
 INFY.NS: 0.2271
 RELIANCE.NS: 0.2103
 TCS.NS: 0.2012
+
 Sharpe Ratio: (To calculate Sharpe Ratio, we need the risk-free rate, assuming it's zero for this example.)
 
 Let's detail the allocation of stocks in this portfolio:
-
 The portfolio is diversified with allocations as follows:
-
 HDFCBANK.NS: 21.63%
 INFY.NS: 31.96%
 RELIANCE.NS: 11.96%
 TCS.NS: 34.45%
+
 This allocation indicates that TCS.NS has the largest allocation, contributing significantly to portfolio performance, while INFY.NS has the smallest allocation. This balanced distribution aims to maximize returns while managing risk through diversified exposure to different stocks.
 
 Summary
