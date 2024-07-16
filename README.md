@@ -60,7 +60,8 @@ stock_data = data_pivoted.reset_index()
 stock_data = stock_data.rename(columns={'Date_': 'Date'})
 stock_data['Date'] = pd.to_datetime(stock_data['Date'])
 
-## Visualize Adjusted Close Price Over Time
+## Visualize Adjusted Close Price![Uploading Capture.PNG…]()
+ Over Time
 sns.set(style='whitegrid')
 plt.figure(figsize=(14, 7))
 sns.lineplot(data=stock_data, x='Date', y='Adj Close', hue='Ticker', marker='o')
