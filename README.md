@@ -25,11 +25,11 @@ You can install the required libraries using pip:
 pip install pandas yfinance matplotlib seaborn numpy
 
 
-# Usage
+## Usage
 Run the main.py script: python main.py
 
-# Code Overview
-# Import Libraries
+## Code Overview
+## Import Libraries
 import pandas as pd
 import yfinance as yf
 from datetime import date, timedelta
@@ -38,17 +38,17 @@ import seaborn as sns
 import numpy as np
 
 
-# Define the Time Period and Stock Tickers
+## Define the Time Period and Stock Tickers
 end_date = date.today().strftime("%Y-%m-%d")
 start_date = (date.today() - timedelta(days=365)).strftime("%Y-%m-%d")
 tickers = ['RELIANCE.NS', 'TCS.NS', 'INFY.NS', 'HDFCBANK.NS']
 
-# Download Stock Data
+## Download Stock Data
 data = yf.download(tickers, start=start_date, end=end_date, progress=False)
 data = data.reset_index()
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
-# Melt and Pivot Data
+## Melt and Pivot Data
 data_melted = data.melt(id_vars=['Date_'], var_name='Variable', value_name='Value')
 data_melted[['Attribute', 'Ticker']] = data_melted['Variable'].str.rsplit('_', n=1, expand=True)
 data_melted = data_melted.drop(columns=['Variable'])
@@ -57,7 +57,7 @@ stock_data = data_pivoted.reset_index()
 stock_data = stock_data.rename(columns={'Date_': 'Date'})
 stock_data['Date'] = pd.to_datetime(stock_data['Date'])
 
-# Visualize Adjusted Close Price Over Time
+## Visualize Adjusted Close Price Over Time
 sns.set(style='whitegrid')
 plt.figure(figsize=(14, 7))
 sns.lineplot(data=stock_data, x='Date', y='Adj Close', hue='Ticker', marker='o')
@@ -69,7 +69,7 @@ plt.grid(True)
 plt.xticks(rotation=45)
 plt.show()
 
-# Calculate and Plot Moving Averages
+## Calculate and Plot Moving Averages
 short_window = 50
 long_window = 200
 stock_data.set_index('Date', inplace=True)
@@ -104,7 +104,7 @@ for ticker in unique_tickers:
     plt.tight_layout()
     plt.show()
 
-# Calculate Daily Returns and Plot Distribution
+## Calculate Daily Returns and Plot Distribution
 stock_data['Daily Return'] = stock_data.groupby('Ticker')['Adj Close'].pct_change()
 
 plt.figure(figsize=(14, 7))
@@ -122,7 +122,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-# Correlation Matrix of Daily Returns
+## Correlation Matrix of Daily Returns
 daily_returns = stock_data.pivot_table(index='Date', columns='Ticker', values='Daily Return')
 correlation_matrix = daily_returns.corr()
 
@@ -135,16 +135,16 @@ plt.yticks(rotation=0)
 plt.tight_layout()
 plt.show()
 
-# Calculate Expected Returns and Volatility
-expected_returns = daily_returns.mean() * 252  # annualize the returns
-volatility = daily_returns.std() * np.sqrt(252)  # annualize the volatilit
+## Calculate Expected Returns and Volatility
+expected_returns = daily_returns.mean() * 252  ## annualize the returns
+volatility = daily_returns.std() * np.sqrt(252)  ## annualize the volatilit
 
 stock_stats = pd.DataFrame({
     'Expected Return': expected_returns,
     'Volatility': volatility
 })
 
-# Portfolio Optimization
+## Portfolio Optimization
 def portfolio_performance(weights, returns, cov_matrix):
     portfolio_return = np.dot(weights, returns)
     portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
@@ -162,7 +162,7 @@ for i in range(num_portfolios):
     portfolio_return, portfolio_volatility = portfolio_performance(weights, expected_returns, cov_matrix)
     results[0,i] = portfolio_return
     results[1,i] = portfolio_volatility
-    results[2,i] = portfolio_return / portfolio_volatility  # Sharpe Ratio
+    results[2,i] = portfolio_return / portfolio_volatility  ## Sharpe Ratio
 
 plt.figure(figsize=(10, 7))
 plt.scatter(results[1,:], results[0,:], c=results[2,:], cmap='YlGnBu', marker='o')
@@ -173,7 +173,7 @@ plt.colorbar(label='Sharpe Ratio')
 plt.grid(True)
 plt.show()
 
-# Maximum Sharpe Ratio Portfolio
+## Maximum Sharpe Ratio Portfolio
 max_sharpe_idx = np.argmax(results[2])
 max_sharpe_return = results[0, max_sharpe_idx]
 max_sharpe_volatility = results[1, max_sharpe_idx]
@@ -198,5 +198,5 @@ portfolio_weights_df = pd.DataFrame({
 portfolio_weights_df
 
 
-# Output
+## Output
 
