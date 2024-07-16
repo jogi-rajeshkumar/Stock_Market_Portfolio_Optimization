@@ -45,7 +45,7 @@ tickers = ['RELIANCE.NS', 'TCS.NS', 'INFY.NS', 'HDFCBANK.NS']
 
 ## Download Stock Data
 data = yf.download(tickers, start=start_date, end=end_date, progress=False)
-data = data.reset_index()
+data = data.reset_index() 
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
 ![Preview of Capture.PNG](../output/Capture.PNG)
