@@ -48,7 +48,9 @@ data = yf.download(tickers, start=start_date, end=end_date, progress=False)
 data = data.reset_index() 
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
-![Portfolio Chart](output/Capture.PNGCapture.PNG)
+
+![Stock Market Portfolio Optimization](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Capture.PNG)
+
 
 
 ## Melt and Pivot Data
