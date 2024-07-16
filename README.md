@@ -48,7 +48,7 @@ data = yf.download(tickers, start=start_date, end=end_date, progress=False)
 data = data.reset_index()
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
-![Image Alt Text](Stock_Market_Portfolio_Optimization/output/Capture.PNG)
+[![Image Alt Text](Stock_Market_Portfolio_Optimization/output/Capture.PNG)](link_to_larger_image_or_resource)
 
 ## Melt and Pivot Data
 data_melted = data.melt(id_vars=['Date_'], var_name='Variable', value_name='Value')
