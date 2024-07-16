@@ -140,7 +140,7 @@ stock_stats = pd.DataFrame({
     'Volatility': volatility
 })
 
-stock_stats
+print (stock_stats)
 
 # function to calculate portfolio performance
 def portfolio_performance(weights, returns, cov_matrix):
@@ -203,4 +203,4 @@ portfolio_weights_df = pd.DataFrame({
     'Weight': max_sharpe_weights
 })
 
-portfolio_weights_df
+print (portfolio_weights_df)
