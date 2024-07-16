@@ -318,6 +318,3 @@ This allocation indicates that TCS.NS has the largest allocation, contributing s
 
 Summary
 Stock market portfolio optimization involves analyzing price trends, expected returns, volatilities, and correlations to achieve diversification and optimize risk-adjusted returns.
-
-I hope you find this article on stock market portfolio optimization with Python informative. Feel free to ask questions in the comments section below.
-```
