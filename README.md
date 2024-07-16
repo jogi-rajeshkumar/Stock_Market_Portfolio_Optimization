@@ -49,8 +49,9 @@ data = data.reset_index()
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
 
+```
 ![Stock Market Portfolio Optimization](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Capture.PNG)
-
+```
 
 
 ## Melt and Pivot Data
@@ -75,6 +76,9 @@ plt.grid(True)
 plt.xticks(rotation=45)
 plt.show()
 
+```
+![Figure 1](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_1.png)
+```
 ## Calculate and Plot Moving Averages
 short_window = 50
 long_window = 200
@@ -99,6 +103,7 @@ for ticker in unique_tickers:
     plt.tight_layout()
     plt.show()
 
+
     plt.figure(figsize=(14, 7))
     plt.bar(ticker_data.index, ticker_data['Volume'], label='Volume', color='orange')
     plt.title(f'{ticker} - Volume Traded')
@@ -109,6 +114,25 @@ for ticker in unique_tickers:
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
+```
+![Figure 2](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_2.png)
+
+![Figure 3](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_3.png)
+
+![Figure 4](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_4.png)
+
+![Figure 5](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_5.png)
+
+![Figure 6](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_6.png)
+
+![Figure 7](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_7.png)
+
+![Figure 8](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_8.png)
+
+![Figure 9](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_9.png)
+
+```
 
 ## Calculate Daily Returns and Plot Distribution
 stock_data['Daily Return'] = stock_data.groupby('Ticker')['Adj Close'].pct_change()
@@ -128,6 +152,10 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+```
+![Figure 10](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_10.png)
+```
+
 ## Correlation Matrix of Daily Returns
 daily_returns = stock_data.pivot_table(index='Date', columns='Ticker', values='Daily Return')
 correlation_matrix = daily_returns.corr()
@@ -140,6 +168,10 @@ plt.xticks(rotation=90)
 plt.yticks(rotation=0)
 plt.tight_layout()
 plt.show()
+
+```
+![Figure 11](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_11.png)
+```
 
 ## Calculate Expected Returns and Volatility
 expected_returns = daily_returns.mean() * 252  ## annualize the returns
@@ -178,6 +210,10 @@ plt.ylabel('Expected Return')
 plt.colorbar(label='Sharpe Ratio')
 plt.grid(True)
 plt.show()
+
+```
+![Figure 12](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Figure_12.png)
+```
 
 ## Maximum Sharpe Ratio Portfolio
 max_sharpe_idx = np.argmax(results[2])
