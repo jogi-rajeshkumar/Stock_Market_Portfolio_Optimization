@@ -182,6 +182,10 @@ stock_stats = pd.DataFrame({
     'Volatility': volatility
 })
 
+![Capture1](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Capture1.PNG)
+
+```
+
 ## Portfolio Optimization
 def portfolio_performance(weights, returns, cov_matrix):
     portfolio_return = np.dot(weights, returns)
@@ -238,6 +242,11 @@ portfolio_weights_df = pd.DataFrame({
     'Weight': max_sharpe_weights
 })
 portfolio_weights_df
+
+```
+![Capture2](https://github.com/jogi-rajeshkumar/Stock_Market_Portfolio_Optimization/blob/main/output/Capture2.PNG)
+
+```
 
 
 ## Output
