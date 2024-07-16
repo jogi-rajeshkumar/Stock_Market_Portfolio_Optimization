@@ -48,6 +48,9 @@ data = yf.download(tickers, start=start_date, end=end_date, progress=False)
 data = data.reset_index()
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
+![Capture](https://github.com/user-attachments/assets/8ddb27d2-fc3e-41da-8880-402ad22987d5)
+
+
 ## Melt and Pivot Data
 data_melted = data.melt(id_vars=['Date_'], var_name='Variable', value_name='Value')
 data_melted[['Attribute', 'Ticker']] = data_melted['Variable'].str.rsplit('_', n=1, expand=True)
@@ -57,7 +60,8 @@ stock_data = data_pivoted.reset_index()
 stock_data = stock_data.rename(columns={'Date_': 'Date'})
 stock_data['Date'] = pd.to_datetime(stock_data['Date'])
 
-## Visualize Adjusted Close Price Over Time
+## Visualize Adjusted Close Price![Uploading Capture.PNG…]()
+ Over Time
 sns.set(style='whitegrid')
 plt.figure(figsize=(14, 7))
 sns.lineplot(data=stock_data, x='Date', y='Adj Close', hue='Ticker', marker='o')
