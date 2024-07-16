@@ -1,100 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock Market Portfolio Optimization</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        background-color: #f9f9f9;
-        color: #333;
-        margin: 0;
-        padding: 0;
-    }
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    h1, h2 {
-        color: #007acc;
-    }
-    pre {
-        background-color: #f4f4f4;
-        border: 1px solid #ddd;
-        border-left: 3px solid #007acc;
-        color: #666;
-        page-break-inside: avoid;
-        font-family: monospace;
-        font-size: 0.9em;
-        line-height: 1.6;
-        margin-bottom: 1.6em;
-        max-width: 100%;
-        overflow: auto;
-        padding: 1em 1.5em;
-        display: block;
-        word-wrap: break-word;
-    }
-    code {
-        background-color: #f4f4f4;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-family: monospace;
-        font-size: 0.9em;
-        margin: 0;
-        padding: 0.2em 0.4em;
-    }
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
-</head>
-<body>
-<div class="container">
-    <h1>Stock Market Portfolio Optimization</h1>
+# Stock_Market_Portfolio_Optimization
+Stock Market Portfolio Optimization with Python
 
-    <h2>Installation</h2>
-    <pre><code>pip install pandas yfinance matplotlib seaborn numpy</code></pre>
+# Stock Market Portfolio Optimization
 
-    <h2>Usage</h2>
-    <p>Run the <code>main.py</code> script:</p>
-    <pre><code>python main.py</code></pre>
+This project aims to analyze historical stock data, visualize key metrics, and perform portfolio optimization to maximize returns and minimize risk. The analysis includes calculating moving averages, daily returns, and the correlation between stocks, as well as finding the optimal portfolio weights using the Efficient Frontier and the Sharpe Ratio.
 
-    <h2>Code Overview</h2>
+## Project Structure
 
-    <h2>Import Libraries</h2>
-    <pre><code>import pandas as pd
+- `main.py`: Main script that downloads stock data, performs analysis, and visualizes the results.
+- `README.md`: This file.
+- Output files (add your output files or images here).
+
+## Dependencies
+
+- pandas
+- yfinance
+- matplotlib
+- seaborn
+- numpy
+
+You can install the required libraries using pip:
+
+```sh
+pip install pandas yfinance matplotlib seaborn numpy
+
+
+## Usage
+Run the main.py script: python main.py
+
+## Code Overview
+## Import Libraries
+import pandas as pd
 import yfinance as yf
 from datetime import date, timedelta
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np</code></pre>
+import numpy as np
 
-    <h2>Define the Time Period and Stock Tickers</h2>
-    <pre><code>end_date = date.today().strftime("%Y-%m-%d")
+
+## Define the Time Period and Stock Tickers
+end_date = date.today().strftime("%Y-%m-%d")
 start_date = (date.today() - timedelta(days=365)).strftime("%Y-%m-%d")
-tickers = ['RELIANCE.NS', 'TCS.NS', 'INFY.NS', 'HDFCBANK.NS']</code></pre>
+tickers = ['RELIANCE.NS', 'TCS.NS', 'INFY.NS', 'HDFCBANK.NS']
 
-    <h2>Download Stock Data</h2>
-    <pre><code>data = yf.download(tickers, start=start_date, end=end_date, progress=False)
+## Download Stock Data
+data = yf.download(tickers, start=start_date, end=end_date, progress=False)
 data = data.reset_index() 
-data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]</code></pre>
+data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
 
-    <h2>Melt and Pivot Data</h2>
-    <pre><code>data_melted = data.melt(id_vars=['Date_'], var_name='Variable', value_name='Value')
+![Stock Price Data](Capture.PNG)
+
+
+## Melt and Pivot Data
+data_melted = data.melt(id_vars=['Date_'], var_name='Variable', value_name='Value')
 data_melted[['Attribute', 'Ticker']] = data_melted['Variable'].str.rsplit('_', n=1, expand=True)
 data_melted = data_melted.drop(columns=['Variable'])
 data_pivoted = data_melted.pivot_table(index=['Date_', 'Ticker'], columns='Attribute', values='Value', aggfunc='first')
 stock_data = data_pivoted.reset_index()
 stock_data = stock_data.rename(columns={'Date_': 'Date'})
-stock_data['Date'] = pd.to_datetime(stock_data['Date'])</code></pre>
+stock_data['Date'] = pd.to_datetime(stock_data['Date'])
 
-    <h2>Visualize Adjusted Close Price Over Time</h2>
-    <img src="https://user-images.githubusercontent.com/61099/242266547-63d98bd9-35f3-4dfe-92f4-a4a8dd75aa5c.png" alt="Stock Price Data">
-    <pre><code>sns.set(style='whitegrid')
+## Visualize Adjusted Close Price![Uploading Capture.PNG…]()
+ Over Time
+sns.set(style='whitegrid')
 plt.figure(figsize=(14, 7))
 sns.lineplot(data=stock_data, x='Date', y='Adj Close', hue='Ticker', marker='o')
 plt.title('Adjusted Close Price Over Time')
@@ -103,10 +71,10 @@ plt.ylabel('Adjusted Close Price')
 plt.legend(title='Ticker')
 plt.grid(True)
 plt.xticks(rotation=45)
-plt.show()</code></pre>
+plt.show()
 
-    <h2>Calculate and Plot Moving Averages</h2>
-    <pre><code>short_window = 50
+## Calculate and Plot Moving Averages
+short_window = 50
 long_window = 200
 stock_data.set_index('Date', inplace=True)
 unique_tickers = stock_data['Ticker'].unique()
@@ -138,10 +106,10 @@ for ticker in unique_tickers:
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()</code></pre>
+    plt.show()
 
-    <h2>Calculate Daily Returns and Plot Distribution</h2>
-    <pre><code>stock_data['Daily Return'] = stock_data.groupby('Ticker')['Adj Close'].pct_change()
+## Calculate Daily Returns and Plot Distribution
+stock_data['Daily Return'] = stock_data.groupby('Ticker')['Adj Close'].pct_change()
 
 plt.figure(figsize=(14, 7))
 sns.set(style='whitegrid')
@@ -156,10 +124,10 @@ plt.ylabel('Frequency')
 plt.legend(title='Ticker')
 plt.grid(True)
 plt.tight_layout()
-plt.show()</code></pre>
+plt.show()
 
-    <h2>Correlation Matrix of Daily Returns</h2>
-    <pre><code>daily_returns = stock_data.pivot_table(index='Date', columns='Ticker', values='Daily Return')
+## Correlation Matrix of Daily Returns
+daily_returns = stock_data.pivot_table(index='Date', columns='Ticker', values='Daily Return')
 correlation_matrix = daily_returns.corr()
 
 plt.figure(figsize=(12, 10))
@@ -169,19 +137,19 @@ plt.title('Correlation Matrix of Daily Returns')
 plt.xticks(rotation=90)
 plt.yticks(rotation=0)
 plt.tight_layout()
-plt.show()</code></pre>
+plt.show()
 
-    <h2>Calculate Expected Returns and Volatility</h2>
-    <pre><code>expected_returns = daily_returns.mean() * 252  ## annualize the returns
-volatility = daily_returns.std() * np.sqrt(252)  ## annualize the volatility
+## Calculate Expected Returns and Volatility
+expected_returns = daily_returns.mean() * 252  ## annualize the returns
+volatility = daily_returns.std() * np.sqrt(252)  ## annualize the volatilit
 
 stock_stats = pd.DataFrame({
     'Expected Return': expected_returns,
     'Volatility': volatility
-})</code></pre>
+})
 
-    <h2>Portfolio Optimization</h2>
-    <pre><code>def portfolio_performance(weights, returns, cov_matrix):
+## Portfolio Optimization
+def portfolio_performance(weights, returns, cov_matrix):
     portfolio_return = np.dot(weights, returns)
     portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
     return portfolio_return, portfolio_volatility
@@ -207,10 +175,10 @@ plt.xlabel('Volatility (Standard Deviation)')
 plt.ylabel('Expected Return')
 plt.colorbar(label='Sharpe Ratio')
 plt.grid(True)
-plt.show()</code></pre>
+plt.show()
 
-    <h2>Maximum Sharpe Ratio Portfolio</h2>
-    <pre><code>max_sharpe_idx = np.argmax(results[2])
+## Maximum Sharpe Ratio Portfolio
+max_sharpe_idx = np.argmax(results[2])
 max_sharpe_return = results[0, max_sharpe_idx]
 max_sharpe_volatility = results[1, max_sharpe_idx]
 max_sharpe_ratio = results[2, max_sharpe_idx]
@@ -231,7 +199,8 @@ portfolio_weights_df = pd.DataFrame({
     'Ticker': unique_tickers,
     'Weight': max_sharpe_weights
 })
-portfolio_weights_df</code></pre>
-</div>
-</body>
-</html>
+portfolio_weights_df
+
+
+## Output
+
